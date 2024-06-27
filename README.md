@@ -17,15 +17,6 @@ Welcome to the wiki for "The Fold," a quantum sci-fi narrative project.
 - [Visual Concepts](visual-concepts.md)
 - [Production Notes](production-notes.md)
 
-## Key Concepts
-
-- [The Fold](the-fold.md)
-- [Quantum Entanglement of Consciousness](quantum-entanglement-of-consciousness.md)
-- [Perceptual Reconstruction](perceptual-reconstruction.md)
-- [Quantum Zeno Effect](quantum-zeno-effect.md)
-- [Observer Effect and Reality Manipulation](observer-effect-and-reality-manipulation.md)
-- [Liminal Spaces as Quantum Structures](liminal-spaces-as-quantum-structures.md)
-- [Entanglement and Causality](entanglement-and-causality.md)
 
 ## About the Project
 
