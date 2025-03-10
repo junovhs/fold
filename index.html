@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Nutrition Navigator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #foodList {
+      list-style-type: none;
+      padding: 0;
+    }
+    #foodList li {
+      cursor: pointer;
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+    }
+    #foodList li:hover {
+      background-color: #eee;
+    }
+    #nutritionDetails {
+      margin-top: 20px;
+    }
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nutrition Navigator</h1>
+  <ul id="foodList"></ul>
+  <div id="nutritionDetails"></div>
+
+  <script>
+    // Mapping from nutrient names in the data to display names
+    const coreNutrients = {
+      "Energy (Atwater Specific Factors)": "Calories",
+      "Total lipid (fat)": "Fat",
+      "Sodium, Na": "Sodium",
+      "Protein": "Protein",
+      "Carbohydrate, by difference": "Carbs",
+      "Sugars, Total": "Sugar" // include if available in the data
+    };
+
+    // Load the JSON file from the same directory
+    fetch('foundationDownload.json')
+      .then(response => response.json())
+      .then(data => {
+        // Assuming the JSON is an array of food objects
+        const foodList = document.getElementById('foodList');
+        data.forEach(food => {
+          const li = document.createElement('li');
+          li.textContent = food.description;
+          li.addEventListener('click', () => showNutritionDetails(food));
+          foodList.appendChild(li);
+        });
+      })
+      .catch(error => console.error('Error loading JSON:', error));
+
+    function showNutritionDetails(food) {
+      const detailsDiv = document.getElementById('nutritionDetails');
+      detailsDiv.innerHTML = `<h2>${food.description}</h2>`;
+
+      let table = '<table><tr><th>Nutrient</th><th>Amount</th><th>Unit</th></tr>';
+      // Go through each nutrient entry in the food record
+      food.foodNutrients.forEach(entry => {
+        const name = entry.nutrient.name;
+        if (coreNutrients[name]) {
+          const displayName = coreNutrients[name];
+          table += `<tr>
+                      <td>${displayName}</td>
+                      <td>${entry.amount}</td>
+                      <td>${entry.nutrient.unitName}</td>
+                    </tr>`;
+        }
+      });
+      table += '</table>';
+      detailsDiv.innerHTML += table;
+    }
+  </script>
+</body>
+</html>
